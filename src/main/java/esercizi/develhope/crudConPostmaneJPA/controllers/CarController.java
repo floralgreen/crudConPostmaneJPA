@@ -3,6 +3,8 @@ package esercizi.develhope.crudConPostmaneJPA.controllers;
 import esercizi.develhope.crudConPostmaneJPA.entities.Car;
 import esercizi.develhope.crudConPostmaneJPA.services.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,7 +58,7 @@ public class CarController {
     public ResponseEntity<Car> deleteCarById(@PathVariable Long id){
         Optional<Car> deletedCar = carService.deleteSpecificCar(id);
         if (deletedCar.isEmpty()){
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
         return ResponseEntity.ok(deletedCar.get());
 
